@@ -22,8 +22,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
+	public static OI oi;
 
-	Command autonomousCommand;
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
