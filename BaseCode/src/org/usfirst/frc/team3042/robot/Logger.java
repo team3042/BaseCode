@@ -23,6 +23,7 @@ public class Logger extends FileIO {
 			this.openFile(path, filename);
 	
 		}
+	}
 	public void log(String message, int level) {
 			
 		if(level <= this.level) {
