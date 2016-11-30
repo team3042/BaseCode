@@ -19,12 +19,8 @@ public class OI {
 	public Joystick joystickRight;
 	public Object left_1;
 	public Object right_1;
-	//Special Vid Snout Practice Stuffs
-	joystickLeft = new Joystick(RobotMap.LEFT_JOYSTICK_USB_PORT_0);
-	joystickRight = new Joystick(RobotMap.RIGHT_JOYSTICK_USB_PORT_1);
-	gamePadGunner = new Joystick(RobotMap.GUNNER_JOYSTICK_USB_PORT_2);
 	
-    
+	
     // There are a few additional built in buttons you can use. Additionally,
     // by subclassing Button you can create custom triggers and bind those to
     // commands the same as any other Button.

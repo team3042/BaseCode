@@ -68,6 +68,28 @@ public class DriveTrain extends Subsystem {
     	initEncoders();
     	
 		gyro.reset();
+		
+		//Starting talons processing motion profile
+    	leftMotorFront.changeMotionControlFramePeriod(5);
+    	rightMotorFront.changeMotionControlFramePeriod(5);
+    	notifier.startPeriodic(0.005);
+    	
+    	//Initializing PIDF
+    	leftMotorFront.setProfile(1);
+    	rightMotorFront.setProfile(1);
+    	leftMotorFront.setPID(pPos, iPos, kD);
+    	rightMotorFront.setPID(pPos, iPos, kD);
+    	leftMotorFront.setIZone(iZone);
+    	rightMotorFront.setIZone(iZone);
+    	leftMotorFront.setF(fPos);
+    	rightMotorFront.setF(fPos);
+    	
+    	leftMotorFront.setProfile(0);
+    	rightMotorFront.setProfile(0);
+    	leftMotorFront.setPID(kP, kI, kD);
+    	rightMotorFront.setPID(kP, kI, kD);
+    	leftMotorFront.setF(kF);
+    	rightMotorFront.setF(kF);
     }
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
@@ -101,15 +123,10 @@ void initEncoders() {
 	resetEncoders();
 }
 
-private void setDefaultCommand(DriveTrain_TankDrive driveTrain_TankDrive) {
-	
-}
 public void initDefaultCommand() {
     // Set the default command for a subsystem here.
 	setDefaultCommand(new DriveTrain_TankDrive());
 }
-
-
 
 public void stop() {
 	setMotorsRaw(0,0);
