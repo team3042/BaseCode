@@ -1,6 +1,7 @@
 
 package org.usfirst.frc.team3042.robot;
 
+import org.usfirst.frc.team3042.robot.commands.AutoMode_DoNothing;
 import org.usfirst.frc.team3042.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -24,11 +25,26 @@ public class Robot extends IterativeRobot {
 	public static final DriveTrain driveTrain = new DriveTrain();
 	public static OI oi;
 	public static Logger logger = new Logger(true, true, 3);
+	
+	Command autonomousCommand;
+    SendableChooser autonomousChooser;
+    public static FileIO fileIO = new FileIO();
+    private int LOGGER_LEVEL = 5;
+    boolean useConsole = true, useFile = true;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-			
+    public void robotInit() {
+		oi = new OI();
+        logger = new Logger(useConsole, useFile, LOGGER_LEVEL);
+        
+		autonomousChooser = new SendableChooser();
+        autonomousChooser.addDefault("Default (Do Nothing)", 0);
+        autonomousChooser.addObject("Autonomous 1", 1);
+        SmartDashboard.putData("Autonomous Chooser", autonomousChooser);
+    }
      
     public void disabledInit(){
     	Robot.logger.log("Disabled Init", 1);
@@ -44,19 +60,24 @@ public class Robot extends IterativeRobot {
 	 * Dashboard, remove all of the chooser code and uncomment the getString code to get the auto name from the text box
 	 * below the Gyro
 	 *
-	 * You can add additional auto modes by adding additional commands to the chooser code above (like the commented example)
+	 * You can add additional auto modes by adding additional commands to the chooser code above, adding additional choosers,
 	 * or additional comparisons to the switch structure below with additional strings & commands.
 	 */
     public void autonomousInit() {
     	Robot.logger.log("Autonomous Init", 1);
-    	/*
-    	Alliance alliance = (Alliance) allianceChooser.getSelected();
-    	camera.setHSVValues(alliance);
-    	*/
+    	
+    	int autonomousCommandNumber = (int) autonomousChooser.getSelected();
+    	switch (autonomousCommandNumber) {
+        case 0:  autonomousCommand = new AutoMode_DoNothing();
+                 break;
+        case 1:  //autonomousCommand = new exampleCommand();
+    			//uncomment above line once you have an autonomous command to run.
+             break;
+    	}
     	
     	
     	// schedule the autonomous command (example)
-        //if (autonomousCommand != null) autonomousCommand.start();
+        if (autonomousCommand != null) autonomousCommand.start();
     }
 
     /**
@@ -71,8 +92,8 @@ public class Robot extends IterativeRobot {
 		// This makes sure that the autonomous stops running when
         // teleop starts running. If you want the autonomous to 
         // continue until interrupted by another command, remove
-        // this line or comment it out.
-        //if (autonomousCommand != null) autonomousCommand.cancel();
+        // this (below) line or comment it out.
+        if (autonomousCommand != null) autonomousCommand.cancel();
         
     }
 
@@ -81,6 +102,8 @@ public class Robot extends IterativeRobot {
      */
     public void teleopPeriodic() {
         Scheduler.getInstance().run();  
+        //Here is where you would put smart dashboard outputs, to put a number on the smart dashbard follow this format
+        //SmartDashboard.putNumber("example number", number or variable here);
     }
     
     /**
