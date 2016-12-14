@@ -2,7 +2,7 @@ package org.usfirst.frc.team3042.robot.subsystems;
 import org.usfirst.frc.team3042.robot.RobotMap;
 import org.usfirst.frc.team3042.robot.commands.DriveTrain_TankDrive;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+//import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDevice;
 import edu.wpi.first.wpilibj.CANTalon.FeedbackDeviceStatus;
@@ -51,7 +51,8 @@ public class DriveTrain extends Subsystem {
     
 	Notifier notifier = new Notifier (new PeriodicRunnable());
 	
-    Gyro gyro = new ADXRS450_Gyro();
+    //Gyro gyro = new ADXRS450_Gyro();
+	//Gyro will break the code if not commented out and not plugged in.
 	public DriveTrain() {
 		//Put the rear motors in follower mode
 		leftMotorRear.changeControlMode(TalonControlMode.Follower);
@@ -67,7 +68,7 @@ public class DriveTrain extends Subsystem {
     	
     	initEncoders();
     	
-		gyro.reset();
+		//gyro.reset();
 		
 		//Starting talons processing motion profile
     	leftMotorFront.changeMotionControlFramePeriod(5);
@@ -220,13 +221,13 @@ public boolean isRightEncPresent() {
 	return !(rightEncMotor.isSensorPresent(FeedbackDevice.QuadEncoder) == FeedbackDeviceStatus.FeedbackStatusPresent);
 }
 
-public double getGyro() {
+/*public double getGyro() {
 	return gyro.getAngle();
-}
+}*/
 
-public void resetGyro() {
+/*public void resetGyro() {
 	gyro.reset();
-}
+}*/
 
 
 //Motion profile functions
