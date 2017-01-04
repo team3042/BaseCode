@@ -16,10 +16,10 @@ import edu.wpi.first.wpilibj.interfaces.Gyro;
  *
  */
 public class DriveTrain extends Subsystem {
-	public CANTalon leftMotorFront;
-	CANTalon leftMotorRear; 
-	CANTalon rightMotorFront;
-	public CANTalon rightMotorRear;
+	CANTalon leftMotorFront = new CANTalon(RobotMap.DRIVETRAIN_TALON_LEFT_FRONT);
+	CANTalon leftMotorRear = new CANTalon(RobotMap.DRIVETRAIN_TALON_LEFT_REAR); 
+	CANTalon rightMotorFront = new CANTalon(RobotMap.DRIVETRAIN_TALON_RIGHT_FRONT);
+	CANTalon rightMotorRear = new CANTalon(RobotMap.DRIVETRAIN_TALON_RIGHT_REAR);
 	
 	CANTalon leftEncMotor = leftMotorFront;
     CANTalon rightEncMotor = rightMotorFront;
